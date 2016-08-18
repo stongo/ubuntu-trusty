@@ -63,7 +63,7 @@ create_package() {
 
 	# Create the package
 	dpkg-gencontrol -isp $forcearch -Vkernel:debarch="${debarch:-$(dpkg --print-architecture)}" -p$pname -P"$pdir"
-	dpkg --build "$pdir" ..
+	dpkg --build "$pdir" .
 }
 
 # Some variables and settings used throughout the script
