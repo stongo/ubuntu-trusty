@@ -1,0 +1,18 @@
+machine:
+  post:
+    - gem install deb-s3 -v 0.8.0
+dependencies:
+  override:
+    - make clean
+    - make mrproper
+    - make defconfig
+    - make deb-pkg
+test:
+  override:
+    - make kselftest
+deployment:
+  s3:
+    tag: /Circle-.*/
+    owner: stongo
+    commands:
+      - deb-s3 upload -b $S3_BUCKET --access-key-id=$AWS_ACCESS_KEY_ID --secret-access-key=$AWS_SECRET_ACESS_KEY *.deb
